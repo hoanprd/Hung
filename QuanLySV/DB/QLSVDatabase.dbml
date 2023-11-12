@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLySinhVien" Class="QLSVDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLExpress;Initial Catalog=QuanLySinhVien;Integrated Security=True" SettingsObjectName="QuanLySV.Properties.Settings" SettingsPropertyName="QuanLySinhVienConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DIEMSV" Member="DIEMSVs">
+    <Type Name="DIEMSV">
+      <Column Name="MASV" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MAMH" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DIEM" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="SINHVIEN_DIEMSV" Member="SINHVIEN" ThisKey="MASV" OtherKey="MASV" Type="SINHVIEN" IsForeignKey="true" />
+      <Association Name="MONHOC_DIEMSV" Member="MONHOC" ThisKey="MAMH" OtherKey="MAMH" Type="MONHOC" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SINHVIEN" Member="SINHVIENs">
+    <Type Name="SINHVIEN">
+      <Column Name="MASV" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TENSV" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DCSV" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MALP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="SINHVIEN_DIEMSV" Member="DIEMSVs" ThisKey="MASV" OtherKey="MASV" Type="DIEMSV" />
+      <Association Name="LOP_SINHVIEN" Member="LOP" ThisKey="MALP" OtherKey="MALP" Type="LOP" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOP" Member="LOPs">
+    <Type Name="LOP">
+      <Column Name="MALP" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TENLP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NK" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="LOP_SINHVIEN" Member="SINHVIENs" ThisKey="MALP" OtherKey="MALP" Type="SINHVIEN" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MONHOC" Member="MONHOCs">
+    <Type Name="MONHOC">
+      <Column Name="MAMH" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TENMH" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SOTC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="MONHOC_DIEMSV" Member="DIEMSVs" ThisKey="MAMH" OtherKey="MAMH" Type="DIEMSV" />
+    </Type>
+  </Table>
+</Database>
